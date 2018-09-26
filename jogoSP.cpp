@@ -533,7 +533,7 @@ void Tela::update(Projetil *projetil, uint64_t deltaT) {
   else
     TempoRestante = TempoRestante + "0" + std::to_string(sec);
 
-  if (min < 0 and (*corpos)[0]->getMoeda() == MaxMoedas )
+  if (min < 0 and (*corpos)[0]->getMoeda() == MaxMoedas)
   {
     JogadorGanhou = true;
   }else if (min < 0){

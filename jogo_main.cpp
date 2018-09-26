@@ -42,7 +42,15 @@ int main ()
 
   Audio::Sample *samplePeteleco;
   samplePeteleco = new Audio::Sample();
-  samplePeteleco->load("assets/peteleco.dat");
+  samplePeteleco->load("assets/fire.dat");
+
+  Audio::Sample *sampleDerrota;
+  sampleDerrota = new Audio::Sample();
+  sampleDerrota->load("assets/derrota.dat");
+
+  Audio::Sample *sampleVitoria;
+  sampleVitoria = new Audio::Sample();
+  sampleVitoria->load("assets/Vitoria.dat");
 
   Audio::Sample *sampleFundo;
   sampleFundo = new Audio::Sample();
@@ -56,7 +64,7 @@ int main ()
   while (1) {
     std::this_thread::sleep_for (std::chrono::milliseconds(1));
     t1 = get_now_ms();
-    if (t1-t0 > 3500) break;
+    if (t1-t0 > 6500) break;
   }
 
   Corpo *pacMan = new Corpo({0,0},{20,11});
@@ -126,13 +134,12 @@ int main ()
   }
   std::this_thread::sleep_for (std::chrono::milliseconds(1000));
 
-  player->play(sampleFundo);
-
   tela->geraMapa();
   printStr(22,6,"Projeteis restantes: " + std::to_string(num_projeteis));
   printStr(23,6,"Moedas Coletadas: " + std::to_string(pacMan->getMoeda()));
   jogoRodando = true;
       
+  player->play(sampleFundo);
 
 
   T = get_now_ms();
@@ -177,6 +184,7 @@ int main ()
       }
       if (c== 0x20 && num_projeteis > 0){  //Verifica se a barra de espaço foi apertada para lançar o projetil
         if(projetil->get_aindaExisto() == false && projetil->get_tenhoProjetil() == true){
+          tPeteleco = get_now_ms();
           player->pause();
           player->play(samplePeteleco);
           projetil->status_projetil(true, true);
@@ -217,6 +225,9 @@ int main ()
 
     if (JogadorPerdeu)
     {
+      player->pause();
+      sampleDerrota->set_position(0);
+      player->play(sampleDerrota);
       std::ifstream file("telaDerrota.txt");
       std::string str;
       int intCount = 9; 
@@ -235,6 +246,9 @@ int main ()
 
     if (JogadorGanhou)
     {
+      player->pause();
+      sampleDerrota->set_position(0);
+      player->play(sampleVitoria);
       std::ifstream file("telaVitoria.txt");
       std::string str;
       int intCount = 9; 

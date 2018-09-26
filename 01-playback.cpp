@@ -133,7 +133,7 @@ void Player::init() {
                          NULL,      /* No input. */
                          &outputParameters,
                          44100,
-                         256,       /* Frames per buffer. */
+                         1024,       /* Frames per buffer. */
                          paClipOff, /* We won't output out of range samples so don't bother clipping them. */
                          mix_and_play,
                          this );
